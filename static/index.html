@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>OpenWindow</title>
+
+        <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="/easyrtc/easyrtc.js"></script>
+        <script type="text/javascript" src="jquery.min.js"></script>
+        <script type="text/javascript" src="threeparty.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <style type="text/css">
+
+            #demoContainer {
+                position:relative;
+            }
+
+            #connectControls {
+                float:left;
+                width:250px;
+                text-align:center;
+                border: 2px solid black;
+            }
+
+            #otherClients {
+                height:200px;
+                overflow-y:scroll;
+            }
+
+            /*#selfVideo {
+                height:225px;
+                width:300px;
+                float:left;
+                border:1px solid gray;
+                margin-left:10px;
+            }
+
+            #callerVideo {
+                height:225px;
+                width:300px;
+                border:1px solid gray;
+                margin-left:10px;
+            }*/
+
+            #acceptCallBox {
+                display:none;
+                z-index:2;
+                position:absolute;
+                top:100px;
+                left:400px;
+                border:red solid 2px;
+                background-color:pink;
+                padding:15px;
+            }
+
+            *:-webkit-full-screen {
+                display:none;
+            }
+
+            #videos {
+                /*display:block;
+                position:relative;*/
+                float:left;
+                top:0;
+                left:0;
+                padding:10px;
+                width:auto;
+                height:320px;
+            }
+            #videos:-webkit-full-screen {
+                display:block;
+                position:fixed;
+                top:0;
+                left:0;
+                padding:0;
+                width:100%;
+                height:100%;
+            }
+
+            video {
+                transform:rotate(270deg);
+            }
+
+            #videos video {
+                position:relative;
+                width:320px;
+                height:auto;
+                left:50%;
+                margin-left:-120px;
+                margin-top:30px;
+            }
+
+            #videos:-webkit-full-screen video {
+                position:relative;
+                height:100%;
+                width:auto;
+                left:60%;
+                margin:0;
+            }
+
+        </style>
+
+    </head>
+    <body>
+
+        <div id="container" >
+
+            <div id="main">
+
+                <h1>Open Window</h1>
+
+                <p> To connect to another user, click the name of that user from the "Connected users"-list</p>
+
+                <hr />
+
+                <div id="demoContainer">
+                    <div id="connectControls">
+                        <!--input type="checkbox" checked="checked" id="shareAudio" />Share audio
+                        <input type="checkbox" checked="checked" id="shareVideo" />Share video<br />
+                        <!--input type="checkbox" id="useFreshIce" onclick="easyrtc.setUseFreshIceEachPeerConnection(this.value);"/>Fresh Ice<br /-->
+                        <button id="connectButton" onclick="connect()">Connect</button>
+                        <button id="hangupButton" disabled="disabled" onclick="hangup()">Hangup</button>
+                        <button id="fullscreenButton" disabled="disabled" onclick="gotoFullscreen()">Fullscreen</button><br />
+                        <button id="rotate" >Rotate Video</button>
+                        <div id="iam">Not yet connected...</div>
+                        <br />
+                        <strong>Connected users:</strong>
+                        <div id="otherClients"></div>
+                    </div>
+
+                    <div id="videos">
+                        <!--video autoplay="autoplay" id="selfVideo"  class="easyrtcMirror" muted="muted" volume="0"></video-->
+                        <video autoplay="autoplay" id="callerVideo"></video>
+                        <div id="acceptCallBox"> <!-- Should be initially hidden using CSS -->
+                            <div id="acceptCallLabel"></div>
+                            <button id="callAcceptButton" >Accept</button> <button id="callRejectButton">Reject</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </body>
+</html>
